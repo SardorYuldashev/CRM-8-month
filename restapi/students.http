@@ -1,0 +1,28 @@
+POST http://localhost:3000/students
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NTkwMDcxLCJleHAiOjE2ODY2NzY0NzF9.-Peg3DszJkXcFOashgeB6sF4lsEwclV25EFT0uGVkf8
+Content-Type: application/json
+
+{
+  "first_name": "Rashid",
+  "last_name": "Xoliqov"
+}
+
+###
+GET http://localhost:3000/students/5
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NTkxMTY4LCJleHAiOjE2ODY2Nzc1Njh9.cENGFXWThmlSubUlbiaPKKuMFzPfig7gsY3JwpLmI2o
+
+
+###
+PATCH http://localhost:3000/students/5
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NTkxMTY4LCJleHAiOjE2ODY2Nzc1Njh9.cENGFXWThmlSubUlbiaPKKuMFzPfig7gsY3JwpLmI2o
+Content-Type: application/json
+
+{
+  "first_name": "Abdulla",
+  "last_name": "Oripov"
+}
+
+
+###
+DELETE http://localhost:3000/students/5
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NTkxMTY4LCJleHAiOjE2ODY2Nzc1Njh9.cENGFXWThmlSubUlbiaPKKuMFzPfig7gsY3JwpLmI2o

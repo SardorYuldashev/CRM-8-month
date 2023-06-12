@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const db = require('../../db');
 const config = require('../../shared/config');
 
@@ -13,7 +14,7 @@ const postStuff = async (req, res) => {
   try {
     const { first_name, last_name, role, username, password } = req.body;
 
-    // TODO hash password
+    const hashPassword = await bcrypt.hash(password, 10);
 
     const result = await db('stuff')
       .insert({
@@ -21,7 +22,7 @@ const postStuff = async (req, res) => {
         last_name,
         role,
         username,
-        password,
+        password: hashPassword,
       })
       .returning('*');
 
@@ -113,7 +114,9 @@ const loginStuff = async (req, res) => {
       });
     }
 
-    if (existing.password !== password) {
+    const passwordCompare = await bcrypt.compare(password, existing.password);
+
+    if (!passwordCompare) {
       return res.status(401).json({
         error: 'Username yoki password xato.',
       });
@@ -142,6 +145,11 @@ const loginStuff = async (req, res) => {
 const patchStuff = async (req, res) => {
   try {
     const { ...changes } = req.body;
+
+    if(changes.password) {
+      changes.password = await bcrypt.hash(changes.password, 10);
+    };
+
     const { id } = req.params;
 
     const existing = await db('stuff').where({ id }).first();

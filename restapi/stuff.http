@@ -1,19 +1,19 @@
 ### Add stuff
-POST http://localhost:3001/stuff
+POST http://localhost:3000/stuff
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg2Mzc3NzA1LCJleHAiOjE2ODY0NjQxMDV9.zM2jDB8F7Hvf0XmzJiPgCbP-yyhz-apCF9eGbIf9jps
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg2NTg3NTUzLCJleHAiOjE2ODY2NzM5NTN9.uf1SvU_DkIjsEaxCmKx5-PFS7zUILR166NDFEtLWxxs
 
 {
-  "first_name": "Akramjon",
-  "last_name": "Abdullayev",
-  "role": "teacher",
-  "username": "ass_teach2",
-  "password": "12345"
+  "first_name": "Sardor",
+  "last_name": "Yuldashev",
+  "role": "super_admin",
+  "username": "sardor",
+  "password": "12345678"
 }
 
 ### List stuff
-GET http://localhost:3001/stuff
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg2Mzc3NzA1LCJleHAiOjE2ODY0NjQxMDV9.zM2jDB8F7Hvf0XmzJiPgCbP-yyhz-apCF9eGbIf9jps
+GET http://localhost:3000/stuff
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NTg3NzA5LCJleHAiOjE2ODY2NzQxMDl9._lL2ND_iclc2cfdEfnGL0nJIv3x2-AmjExiQ6L2Cvsg
 # query params: role, q
 
 ### Show single stuff
@@ -21,23 +21,23 @@ GET http://localhost:3001/stuff/1
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg2Mzc3NzA1LCJleHAiOjE2ODY0NjQxMDV9.zM2jDB8F7Hvf0XmzJiPgCbP-yyhz-apCF9eGbIf9jps
 
 ### Login schema
-POST http://localhost:3001/stuff/login
+POST http://localhost:3000/stuff/login
 Content-Type: application/json
 
 {
-  "username": "admin1",
-  "password": "12345"
+  "username": "sardor",
+  "password": "12345678"
 }
 
 ### Update stuff
-PATCH http://localhost:3001/stuff/1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg2Mzc3NzA1LCJleHAiOjE2ODY0NjQxMDV9.zM2jDB8F7Hvf0XmzJiPgCbP-yyhz-apCF9eGbIf9jps
+PATCH http://localhost:3000/stuff/2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NTg3NzA5LCJleHAiOjE2ODY2NzQxMDl9._lL2ND_iclc2cfdEfnGL0nJIv3x2-AmjExiQ6L2Cvsg
 Content-Type: application/json
 
 {
-  "first_name": "MuhammadSodiq",
-  "last_name": "Mirziyoyev",
-  "username": "mirziyoyev" 
+  "first_name": "Imron",
+  "last_name": "Abdusalimov",
+  "password": "123456"
 }
 
 ### Delete stuff
