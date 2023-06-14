@@ -10,6 +10,14 @@ const postGroup = async (req, res) => {
   try {
     const { name, teacher_id, assistent_teacher_id } = req.body;
 
+    const existing = await db('groups').where({name});
+
+    if (existing.length == 1) {
+      return res.status(400).json({
+        error: 'Bunday guruh mavjud'
+      });
+    };
+
     if (teacher_id) {
       const existing = await db('stuff').where({ id: teacher_id }).first();
 

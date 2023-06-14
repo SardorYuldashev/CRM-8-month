@@ -4,7 +4,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVy
 Content-Type: application/json
 
 {
-  "name": "N01",
+  "name": "N105",
   "teacher_id": 3,
   "assistent_teacher_id": 4
 }

@@ -1,0 +1,8 @@
+### Yo'nalish yaratish
+POST http://localhost:3000/directions
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
+Content-Type: application/json
+
+{
+  "name": "Dizayn"
+}
