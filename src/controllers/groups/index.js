@@ -30,7 +30,7 @@ const postGroup = async (req, res) => {
       };
     };
 
-    const result =  await db('groups').insert({ name, teacher_id, assistent_teacher_id }).returning('*');
+    const result = await db('groups').insert({ name, teacher_id, assistent_teacher_id }).returning('*');
 
     res.status(201).json({
       group: result[0]
@@ -54,8 +54,8 @@ const getGroups = async (req, res) => {
       .leftJoin('stuff as stuff_teacher', 'stuff_teacher.id', 'groups.teacher_id')
       .leftJoin('stuff as stuff_assistent', 'stuff_assistent.id', 'groups.assistent_teacher_id')
       .select(
-        'groups.id', 
-        'groups.name', 
+        'groups.id',
+        'groups.name',
         db.raw("CONCAT(stuff_teacher.first_name, ' ', stuff_teacher.last_name) as teacher"),
         db.raw("CONCAT(stuff_assistent.first_name, ' ', stuff_assistent.last_name) as assistent"),
       );
@@ -71,9 +71,45 @@ const getGroups = async (req, res) => {
   };
 };
 
+/**
+ * Bitta guruhni olish
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const showGroup = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const group = await db('groups')
+      .leftJoin('stuff as stuff_teacher', 'stuff_teacher.id', 'groups.teacher_id')
+      .leftJoin('stuff as stuff_assistent', 'stuff_assistent.id', 'groups.assistent_teacher_id')
+      .select(
+        'groups.id',
+        'groups.name',
+        db.raw("CONCAT(stuff_teacher.first_name, ' ', stuff_teacher.last_name) as teacher"),
+        db.raw("CONCAT(stuff_assistent.first_name, ' ', stuff_assistent.last_name) as assistent"),
+      )
+      .where({ 'groups.id': id })
+      .first();
 
+    if (!group) {
+      return res.status(404).json({
+        error: 'Guruh topilmadi',
+      });
+    };
+
+    res.status(200).json({
+      group
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  };
+};
 
 module.exports = {
   postGroup,
   getGroups,
+  showGroup
 };
