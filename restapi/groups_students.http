@@ -1,0 +1,19 @@
+### Bog'lanish yaratish
+POST http://localhost:3000/groups/2/students/6
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
+
+
+
+
+
+
+### Bog'lanish yaratish
+DELETE http://localhost:3000/groups/1/students/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
+
+
+
+
+### Guruhdagi o'quvchilarni ko'rish
+GET http://localhost:3000/groups/1/students
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
