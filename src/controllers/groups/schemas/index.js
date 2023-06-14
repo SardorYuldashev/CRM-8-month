@@ -1,5 +1,5 @@
-const { postGroupSchema } = require('./post-groups');
+const { postAndPatchGroupSchema } = require('./postAndPatchGroups');
 
 module.exports = {
-  postGroupSchema,
-}
+  postAndPatchGroupSchema,
+};

@@ -3,12 +3,24 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVy
 Content-Type: application/json
 
 {
-  "name": "N82",
-  "teacher_id": 33,
-  "assistent_teacher_id": 34
+  "name": "N01",
+  "teacher_id": 3,
+  "assistent_teacher_id": 4
 }
 
 
 ###
 GET http://localhost:3000/groups/2
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
+
+
+###
+PATCH http://localhost:3000/groups/2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
+Content-Type: application/json
+
+{
+  "name": "N93",
+  "teacher_id": 5,
+  "assistent_teacher_id": 6
+}

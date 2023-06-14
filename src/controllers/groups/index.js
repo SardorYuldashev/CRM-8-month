@@ -108,8 +108,58 @@ const showGroup = async (req, res) => {
   };
 };
 
+const patchGroup = async (req, res) => {
+  try {
+    const { ...changes } = req.body;
+
+    const { id } = req.params;
+
+    const existingGroup = await db('groups').where({ id }).first();
+
+    if (!existingGroup) {
+      return res.status(404).json({
+        error: `${id} idli guruh topilmadi.`,
+      });
+    };
+
+    if (changes.teacher_id) {
+      const existing = await db('stuff').where({ id: changes.teacher_id }).first();
+
+      if (!existing || existing.role !== 'teacher') {
+        return res.status(400).json({
+          error: 'Teacher mavjud emas'
+        });
+      };
+    };
+
+    if (changes.assistent_teacher_id) {
+      const existing = await db('stuff').where({ id: changes.assistent_teacher_id }).first();
+
+      if (!existing || existing.role !== 'assistent_teacher') {
+        return res.status(400).json({
+          error: 'Assistent teacher mavjud emas'
+        });
+      };
+    };
+
+    const updated = await db('groups')
+    .where({ id })
+    .update({ ...changes })
+    .returning(['id', 'name', 'teacher_id', 'assistent_teacher_id']);
+
+  res.status(200).json({
+    updated: updated[0],
+  });
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
+  };
+};
+
 module.exports = {
   postGroup,
   getGroups,
-  showGroup
+  showGroup,
+  patchGroup
 };
