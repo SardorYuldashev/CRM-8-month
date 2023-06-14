@@ -108,6 +108,11 @@ const showGroup = async (req, res) => {
   };
 };
 
+/**
+ * Guruhni tashrirlash
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
 const patchGroup = async (req, res) => {
   try {
     const { ...changes } = req.body;
@@ -143,16 +148,48 @@ const patchGroup = async (req, res) => {
     };
 
     const updated = await db('groups')
-    .where({ id })
-    .update({ ...changes })
-    .returning(['id', 'name', 'teacher_id', 'assistent_teacher_id']);
+      .where({ id })
+      .update({ ...changes })
+      .returning(['id', 'name', 'teacher_id', 'assistent_teacher_id']);
 
-  res.status(200).json({
-    updated: updated[0],
-  });
+    res.status(200).json({
+      updated: updated[0],
+    });
   } catch (error) {
     res.status(500).json({
       error: error.message,
+    });
+  };
+};
+
+/**
+ * Guruhni o'chirish
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const deleteGroup = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const existing = await db('groups').where({ id }).first();
+
+    if (!existing) {
+      return res.status(404).json({
+        error: `${id} idli guruh topilmadi`,
+      });
+    };
+
+    const deleted = await db('groups')
+      .where({ id })
+      .delete()
+      .returning(['id', 'name', 'teacher_id', 'assistent_teacher_id']);
+
+    res.status(200).json({
+      deleted: deleted[0],
+    });
+  } catch (error) {
+    res.status(500).json({
+      error
     });
   };
 };
@@ -161,5 +198,6 @@ module.exports = {
   postGroup,
   getGroups,
   showGroup,
-  patchGroup
+  patchGroup,
+  deleteGroup
 };

@@ -9,7 +9,8 @@ const router = express.Router();
 router.post('/groups', isLoggedIn, hasRole(['super_admin', 'admin']), genValidator(schemas.postAndPatchGroupSchema), controllers.postGroup);
 router.get('/groups', isLoggedIn, controllers.getGroups);
 router.get('/groups/:id', isLoggedIn, controllers.showGroup);
-router.patch('/groups/:id', isLoggedIn, hasRole(['super_admin', 'admin']),genValidator(schemas.postAndPatchGroupSchema), controllers.patchGroup);
+router.patch('/groups/:id', isLoggedIn, hasRole(['super_admin', 'admin']), genValidator(schemas.postAndPatchGroupSchema), controllers.patchGroup);
+router.delete('/groups/:id', isLoggedIn, hasRole(['super_admin', 'admin']), controllers.deleteGroup);
 
 
 module.exports = router;
