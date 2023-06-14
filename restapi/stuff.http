@@ -1,14 +1,14 @@
 ### Add stuff
 POST http://localhost:3000/stuff
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg2NTg3NTUzLCJleHAiOjE2ODY2NzM5NTN9.uf1SvU_DkIjsEaxCmKx5-PFS7zUILR166NDFEtLWxxs
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
 
 {
-  "first_name": "Sardor",
-  "last_name": "Yuldashev",
-  "role": "super_admin",
-  "username": "sardor",
-  "password": "12345678"
+  "first_name": "Alisher",
+  "last_name": "Egamberdiyev",
+  "role": "teacher",
+  "username": "alisher",
+  "password": "123456"
 }
 
 ### List stuff
