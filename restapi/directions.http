@@ -6,3 +6,33 @@ Content-Type: application/json
 {
   "name": "Dizayn"
 }
+
+### Yo'nalishlar ro'yxatini olish
+GET http://localhost:3000/directions
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
+
+
+
+### Bitta yo'nalishni olish
+GET http://localhost:3000/directions/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
+
+
+
+
+### Yo'nalish tahrirlash
+PATCH http://localhost:3000/directions/2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
+Content-Type: application/json
+
+{
+  "name": "Dasturlash"
+}
+
+
+
+
+### Yo'nalishni o'chirish
+DELETE http://localhost:3000/directions/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
+
