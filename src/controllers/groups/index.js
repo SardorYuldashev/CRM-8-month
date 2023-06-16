@@ -10,7 +10,7 @@ const postGroup = async (req, res) => {
   try {
     const { name, teacher_id, assistent_teacher_id } = req.body;
 
-    const existing = await db('groups').where({name});
+    const existing = await db('groups').where({ name });
 
     if (existing.length == 1) {
       return res.status(400).json({
@@ -202,10 +202,34 @@ const deleteGroup = async (req, res) => {
   };
 };
 
+/**
+ * Bitta guruhni olish
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const addStudent = async (req, res) => {
+  try {
+    const { id, student_id } = req.params;
+
+    const result = await db('groups_students').insert({ group_id: id, student_id }).returning('*');
+
+    res.status(201).json({
+      result
+    })
+
+
+  } catch (error) {
+    res.status(500).json({
+      error
+    });
+  };
+};
+
 module.exports = {
   postGroup,
   getGroups,
   showGroup,
   patchGroup,
-  deleteGroup
+  deleteGroup,
+  addStudent
 };

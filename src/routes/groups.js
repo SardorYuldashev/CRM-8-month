@@ -12,5 +12,11 @@ router.get('/groups/:id', isLoggedIn, controllers.showGroup);
 router.patch('/groups/:id', isLoggedIn, hasRole(['super_admin', 'admin']), genValidator(schemas.postAndPatchGroupSchema), controllers.patchGroup);
 router.delete('/groups/:id', isLoggedIn, hasRole(['super_admin', 'admin']), controllers.deleteGroup);
 
+router.post('/groups/:id/students/:student_id', isLoggedIn, hasRole(['super_admin', 'admin']), controllers.addStudent);
+
+// router.delete('/groups/:id/students/:student_id', isLoggedIn, hasRole(['super_admin', 'admin']), controllers.deleteGroupsStudents);
+
+// router.get('/groups/:id/students', isLoggedIn, controllers.getGroupsStudents);
+
 
 module.exports = router;
