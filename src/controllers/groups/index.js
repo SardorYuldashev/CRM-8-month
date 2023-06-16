@@ -69,7 +69,7 @@ const getGroups = async (req, res) => {
       );
 
 
-    res.status(201).json({
+    res.status(200).json({
       group: result
     });
   } catch (error) {
@@ -90,13 +90,22 @@ const showGroup = async (req, res) => {
     const group = await db('groups')
       .leftJoin('stuff as stuff_teacher', 'stuff_teacher.id', 'groups.teacher_id')
       .leftJoin('stuff as stuff_assistent', 'stuff_assistent.id', 'groups.assistent_teacher_id')
+      .innerJoin('groups_students', 'groups_students.group_id', 'groups.id')
+      .innerJoin('students', 'groups_students.student_id', 'students.id')
       .select(
         'groups.id',
         'groups.name',
         db.raw("CONCAT(stuff_teacher.first_name, ' ', stuff_teacher.last_name) as teacher"),
         db.raw("CONCAT(stuff_assistent.first_name, ' ', stuff_assistent.last_name) as assistent"),
+        db.raw(`json_agg(json_build_object(
+          'id', students.id,
+          'first_name', students.first_name,
+          'last_name', students.last_name,
+          'joined_at', groups_students.joined_at
+        )) as students`)
       )
       .where({ 'groups.id': id })
+      .groupBy('groups.id', 'stuff_teacher.id', 'stuff_assistent.id')
       .first();
 
     if (!group) {
@@ -104,6 +113,13 @@ const showGroup = async (req, res) => {
         error: 'Guruh topilmadi',
       });
     };
+
+    // const students = await db('groups_students')
+    //   .innerJoin('students', 'groups_students.student_id', 'students.id')
+    //   .where({ 'groups_students.group_id': id })
+    //   .select('students.first_name', 'students.last_name', 'groups_students.joined_at');
+
+    //   group.studens = students;
 
     res.status(200).json({
       group
