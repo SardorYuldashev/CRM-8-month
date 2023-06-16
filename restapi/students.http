@@ -8,8 +8,8 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/students/5
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NTkxMTY4LCJleHAiOjE2ODY2Nzc1Njh9.cENGFXWThmlSubUlbiaPKKuMFzPfig7gsY3JwpLmI2o
+GET http://localhost:3000/students?q=xas&limit=10&offset=0&sort_by=id
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
 
 
 ###

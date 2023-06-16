@@ -44,7 +44,7 @@ const postStuff = async (req, res) => {
  */
 const getStuff = async (req, res) => {
   try {
-    const { role, q, offset = 1, limit = 5,sort_by = 'id', sort_order = 'desc' } = req.query;
+    const { role, q, offset = 0, limit = 5, sort_by = 'id', sort_order = 'desc' } = req.query;
 
     const dbQuery = db('stuff').select('id', 'first_name', 'last_name', 'role', 'username');
 
@@ -55,11 +55,11 @@ const getStuff = async (req, res) => {
       dbQuery.andWhereILike('first_name', `%${q}%`).orWhereILike('last_name', `%${q}%`);
     }
 
-    const total = await dbQuery.clone().count().groupBy('id')
+    const total = await dbQuery.clone().count().groupBy('id');
 
     dbQuery.orderBy(sort_by, sort_order);
 
-    dbQuery.limit(limit).offset((offset - 1)*limit);
+    dbQuery.limit(limit).offset(offset);
 
     const stuff = await dbQuery;
 

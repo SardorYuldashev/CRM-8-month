@@ -11,7 +11,7 @@ Content-Type: application/json
 
 
 ### Guruhlarni olish
-GET http://localhost:3000/groups
+GET http://localhost:3000/groups?sort_order=asc
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
 
 

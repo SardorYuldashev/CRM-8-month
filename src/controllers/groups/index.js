@@ -58,7 +58,9 @@ const postGroup = async (req, res) => {
  */
 const getGroups = async (req, res) => {
   try {
-    const result = await db('groups')
+    const { name, teacher, offset = 0, limit = 5, sort_by = 'id', sort_order = 'desc' } = req.query;
+
+    const dbQuery = db('groups')
       .leftJoin('stuff as stuff_teacher', 'stuff_teacher.id', 'groups.teacher_id')
       .leftJoin('stuff as stuff_assistent', 'stuff_assistent.id', 'groups.assistent_teacher_id')
       .select(
@@ -66,11 +68,32 @@ const getGroups = async (req, res) => {
         'groups.name',
         db.raw("CONCAT(stuff_teacher.first_name, ' ', stuff_teacher.last_name) as teacher"),
         db.raw("CONCAT(stuff_assistent.first_name, ' ', stuff_assistent.last_name) as assistent"),
-      );
+      )
+      .groupBy('groups.id', 'stuff_teacher.id', 'stuff_assistent.id');
 
+    if (name) {
+      dbQuery.andWhereILike('name', `%${name}%`);
+    };
+
+    if (teacher) {
+      dbQuery.andWhereILike('stuff_teacher.first_name', `%${teacher}%`).orWhereILike('stuff_teacher.last_name', `%${teacher}%`);
+    };
+
+    const total = await dbQuery.clone().count().groupBy('groups.id', 'stuff_teacher.id', 'stuff_assistent.id');
+
+    dbQuery.orderBy(sort_by, sort_order);
+
+    dbQuery.limit(limit).offset(offset);
+
+    const group = await dbQuery;
 
     res.status(200).json({
-      group: result
+      group,
+      // pageInfo: {
+      //   total: total.length,
+      //   offset,
+      //   limit,
+      // }
     });
   } catch (error) {
     res.status(500).json({
@@ -113,13 +136,6 @@ const showGroup = async (req, res) => {
         error: 'Guruh topilmadi',
       });
     };
-
-    // const students = await db('groups_students')
-    //   .innerJoin('students', 'groups_students.student_id', 'students.id')
-    //   .where({ 'groups_students.group_id': id })
-    //   .select('students.first_name', 'students.last_name', 'groups_students.joined_at');
-
-    //   group.studens = students;
 
     res.status(200).json({
       group
