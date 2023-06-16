@@ -89,11 +89,11 @@ const getGroups = async (req, res) => {
 
     res.status(200).json({
       group,
-      // pageInfo: {
-      //   total: total.length,
-      //   offset,
-      //   limit,
-      // }
+      pageInfo: {
+        total: total.length,
+        offset,
+        limit,
+      }
     });
   } catch (error) {
     res.status(500).json({
@@ -235,7 +235,7 @@ const deleteGroup = async (req, res) => {
 };
 
 /**
- * Bitta guruhni olish
+ * Student qo'shish
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
@@ -257,11 +257,140 @@ const addStudent = async (req, res) => {
   };
 };
 
+/**
+ * Studentni guruhdan o'chirish
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const removeFromGroup = async (req, res) => {
+  try {
+    const { id, student_id } = req.params;
+
+    const existing = await db('groups_students')
+      .where({ group_id: id, student_id })
+      .first();
+
+    if (!existing) {
+      return res.status(400).json({
+        error: `Xato IDlar kiritilgan`
+      });
+    };
+
+    const deleted = await db('groups_students')
+      .where({ group_id: id, student_id })
+      .delete()
+      .returning(['id', 'group_id', 'student_id']);
+
+    res.status(200).json({
+      deleted: deleted[0],
+    });
+  } catch (error) {
+    res.status(500).json({
+      error
+    });
+  };
+};
+
+/** Guruhdagi o'quvchilarni ko'rish
+ * Post groups_students
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const getListStudentsOfGroup = async (req, res) => {
+  try {
+    const { offset = 0, limit = 5, sort_order = 'desc' } = req.query;
+
+    const { id } = req.params;
+
+    const dbQuery = db('groups_students')
+      .leftJoin('groups', 'groups_students.group_id', 'groups.id')
+      .leftJoin('students', 'groups_students.student_id', 'students.id')
+      .select('groups.name as group',
+        db.raw("CONCAT(students.first_name, ' ', students.last_name) as student"))
+      .where({ 'groups_students.group_id': id })
+      .groupBy('groups_students.id', 'groups.id', 'students.id');
+
+
+    const total = await dbQuery.clone().count().groupBy('groups_students.id', 'groups.id', 'students.id');
+
+    dbQuery.orderBy('student', sort_order);
+
+    dbQuery.limit(limit).offset(offset);
+
+
+    const result = await dbQuery;
+
+    if (result.length === 0) {
+      return res.status(400).json({
+        error: `IDsi ${id} ga teng bo'lgan guruh mavjud emas`
+      });
+    };
+
+    res.status(200).json({
+      result,
+      pageInfo: {
+        total: total.length,
+        offset,
+        limit,
+      }
+    })
+  } catch (error) {
+    res.status(500).json({
+      error
+    });
+  };
+};
+
 module.exports = {
   postGroup,
   getGroups,
   showGroup,
   patchGroup,
   deleteGroup,
-  addStudent
+  addStudent,
+  removeFromGroup,
+  getListStudentsOfGroup
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const getListStudentsOfGroup = async (req, res) => {
+//   try {
+//     const { group, student, offset = 0, limit = 5, sort_by = 'id', sort_order = 'desc' } = req.query;
+
+//     const { id } = req.params;
+
+//     const result = await db('groups_students')
+//       .leftJoin('groups', 'groups_students.group_id', 'groups.id')
+//       .leftJoin('students', 'groups_students.student_id', ' students.id')
+//       .select('groups.name as group',
+//       db.raw("CONCAT(students.first_name, ' ', students.last_name) as student"))
+//       .where({ 'groups_students.group_id': id });
+
+//     if(result.length === 0) {
+//       return res.status(400).json({
+//         error: `IDsi ${id} ga teng bo'lgan guruh mavjud emas`
+//       });
+//     };
+
+//     res.status(200).json({
+//       result
+//     })
+//   } catch (error) {
+//     res.status(500).json({
+//       error
+//     });
+//   };
+// };

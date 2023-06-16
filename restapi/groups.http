@@ -11,7 +11,7 @@ Content-Type: application/json
 
 
 ### Guruhlarni olish
-GET http://localhost:3000/groups?sort_order=asc
+GET http://localhost:3000/groups?sort_order=desc
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
 
 
@@ -22,7 +22,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVy
 
 ### Guruh ma'lumotini tahrirlash
 PATCH http://localhost:3000/groups/2
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
 Content-Type: application/json
 
 {
@@ -35,4 +35,26 @@ Content-Type: application/json
 
 ### Guruhni o'chirish
 DELETE http://localhost:3000/groups/4
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
+
+
+
+### Guruhga o'quvchi qo'shish
+POST http://localhost:3000/groups/1/students/8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
+
+
+
+
+
+
+### Bog'lanish yaratish
+DELETE http://localhost:3000/groups/1/students/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
+
+
+
+
+### Guruhdagi o'quvchilarni ko'rish
+GET http://localhost:3000/groups/1/students?limit=2&sort_order=desc
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4

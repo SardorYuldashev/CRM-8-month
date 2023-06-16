@@ -5,7 +5,6 @@ const studentsRoutes = require('./routes/student');
 const groupsRoutes = require('./routes/groups');
 const directionsRoutes = require('./routes/directions');
 
-// const groupsStudentsRoutes = require('./routes/groups_students');
 
 const app = express();
 
@@ -17,7 +16,6 @@ app.use(groupsRoutes);
 app.use(directionsRoutes);
 
 
-// app.use(groupsStudentsRoutes);
 
 
 const PORT = config.port || 3000;
