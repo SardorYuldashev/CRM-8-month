@@ -12,12 +12,12 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVy
 }
 
 ### List stuff
-GET http://localhost:3000/stuff
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NTg3NzA5LCJleHAiOjE2ODY2NzQxMDl9._lL2ND_iclc2cfdEfnGL0nJIv3x2-AmjExiQ6L2Cvsg
+GET http://localhost:3000/stuff?sort_order=esc&sort_by=first_name&limit=10
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
 # query params: role, q
 
 ### Show single stuff
-GET http://localhost:3001/stuff/1
+GET http://localhost:3000/stuff/1
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg2Mzc3NzA1LCJleHAiOjE2ODY0NjQxMDV9.zM2jDB8F7Hvf0XmzJiPgCbP-yyhz-apCF9eGbIf9jps
 
 ### Login schema

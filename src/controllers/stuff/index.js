@@ -44,7 +44,8 @@ const postStuff = async (req, res) => {
  */
 const getStuff = async (req, res) => {
   try {
-    const { role, q } = req.query;
+    const { role, q, offset = 1, limit = 5,sort_by = 'id', sort_order = 'desc' } = req.query;
+
     const dbQuery = db('stuff').select('id', 'first_name', 'last_name', 'role', 'username');
 
     if (role) {
@@ -54,10 +55,21 @@ const getStuff = async (req, res) => {
       dbQuery.andWhereILike('first_name', `%${q}%`).orWhereILike('last_name', `%${q}%`);
     }
 
+    const total = await dbQuery.clone().count().groupBy('id')
+
+    dbQuery.orderBy(sort_by, sort_order);
+
+    dbQuery.limit(limit).offset((offset - 1)*limit);
+
     const stuff = await dbQuery;
 
     res.status(200).json({
       stuff,
+      pageInfo: {
+        total: total.length,
+        offset,
+        limit,
+      }
     });
   } catch (error) {
     res.status(500).json({
@@ -146,7 +158,7 @@ const patchStuff = async (req, res) => {
   try {
     const { ...changes } = req.body;
 
-    if(changes.password) {
+    if (changes.password) {
       changes.password = await bcrypt.hash(changes.password, 10);
     };
 
