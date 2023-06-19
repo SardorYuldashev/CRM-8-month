@@ -4,20 +4,20 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVy
 Content-Type: application/json
 
 {
-  "name": "N200",
+  "name": "G030",
   "teacher_id": 3,
   "assistent_teacher_id": 4,
-  "direction_id": 2
+  "direction_id": 3
 }
 
 
 ### Guruhlarni olish
-GET http://localhost:3000/groups
+GET http://localhost:3000/groups?direction_id=3
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
 
 
 ### Bitta guruh ma'lumotini olish
-GET http://localhost:3000/groups/5
+GET http://localhost:3000/groups/10
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
 
 

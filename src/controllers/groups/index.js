@@ -58,7 +58,7 @@ const postGroup = async (req, res) => {
  */
 const getGroups = async (req, res) => {
   try {
-    const { name, teacher, offset = 0, limit = 5, sort_by = 'id', sort_order = 'desc' } = req.query;
+    const { name, direction_id, teacher, offset = 0, limit = 5, sort_by = 'id', sort_order = 'desc' } = req.query;
 
     const dbQuery = db('groups')
       .leftJoin('stuff as stuff_teacher', 'stuff_teacher.id', 'groups.teacher_id')
@@ -87,6 +87,10 @@ const getGroups = async (req, res) => {
 
     if (teacher) {
       dbQuery.andWhereILike('stuff_teacher.first_name', `%${teacher}%`).orWhereILike('stuff_teacher.last_name', `%${teacher}%`);
+    };
+
+    if (direction_id) {
+      dbQuery.andWhere({direction_id});
     };
 
     const total = await dbQuery.clone().count().groupBy('groups.id', 'stuff_teacher.id', 'stuff_assistent.id');
@@ -129,7 +133,15 @@ const showGroup = async (req, res) => {
       .select(
         'groups.id',
         'groups.name',
-        'directions.name as direction',
+        // 'directions.name as direction',
+        db.raw(`
+          CASE WHEN directions.id IS NULL THEN NULL
+          ELSE
+          json_build_object(
+            'id', directions.id,
+            'name', directions.name
+          ) END as direction
+        `),
         db.raw(`
         CASE WHEN stuff_teacher.id IS NULL THEN NULL
         ELSE
