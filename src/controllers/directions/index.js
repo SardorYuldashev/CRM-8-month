@@ -45,7 +45,6 @@ const getDirections = async (req, res) => {
       dbQuery.andWhereILike('name', `%${q}%`);
     };
 
-
     const total = await dbQuery.clone().count().groupBy('id');
 
     dbQuery.orderBy(sort_by, sort_order);

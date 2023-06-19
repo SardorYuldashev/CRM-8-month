@@ -1,47 +1,47 @@
 ### Guruh yaratish
 POST http://localhost:3000/groups
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
 Content-Type: application/json
 
 {
-  "name": "N105",
+  "name": "N200",
   "teacher_id": 3,
-  "assistent_teacher_id": 4
+  "assistent_teacher_id": 4,
+  "direction_id": 2
 }
 
 
 ### Guruhlarni olish
-GET http://localhost:3000/groups?sort_order=desc
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
+GET http://localhost:3000/groups
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
 
 
 ### Bitta guruh ma'lumotini olish
-GET http://localhost:3000/groups/2
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
+GET http://localhost:3000/groups/5
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
 
 
 ### Guruh ma'lumotini tahrirlash
-PATCH http://localhost:3000/groups/2
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
+PATCH http://localhost:3000/groups/
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
 Content-Type: application/json
 
 {
-  "name": "N93",
-  "teacher_id": 5,
-  "assistent_teacher_id": 6
+  "name": "N111",
+  "assistent_teacher_id": 4
 }
 
 
 
 ### Guruhni o'chirish
-DELETE http://localhost:3000/groups/4
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
+DELETE http://localhost:3000/groups/3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
 
 
 
 ### Guruhga o'quvchi qo'shish
-POST http://localhost:3000/groups/1/students/8
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
+POST http://localhost:3000/groups/4/students/5
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
 
 
 
@@ -50,11 +50,12 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVy
 
 ### Bog'lanish yaratish
 DELETE http://localhost:3000/groups/1/students/1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
+
 
 
 
 
 ### Guruhdagi o'quvchilarni ko'rish
-GET http://localhost:3000/groups/1/students?limit=2&sort_order=desc
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
+GET http://localhost:3000/groups/1/students
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM

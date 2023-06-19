@@ -8,7 +8,7 @@ const db = require('../../db');
  */
 const postGroup = async (req, res) => {
   try {
-    const { name, teacher_id, assistent_teacher_id } = req.body;
+    const { name, teacher_id, assistent_teacher_id, direction_id } = req.body;
 
     const existing = await db('groups').where({ name });
 
@@ -38,7 +38,7 @@ const postGroup = async (req, res) => {
       };
     };
 
-    const result = await db('groups').insert({ name, teacher_id, assistent_teacher_id }).returning('*');
+    const result = await db('groups').insert({ name, teacher_id, assistent_teacher_id, direction_id }).returning('*');
 
     res.status(201).json({
       group: result[0]
@@ -63,13 +63,23 @@ const getGroups = async (req, res) => {
     const dbQuery = db('groups')
       .leftJoin('stuff as stuff_teacher', 'stuff_teacher.id', 'groups.teacher_id')
       .leftJoin('stuff as stuff_assistent', 'stuff_assistent.id', 'groups.assistent_teacher_id')
+      .leftJoin('directions', 'groups.direction_id', 'directions.id')
       .select(
         'groups.id',
         'groups.name',
-        db.raw("CONCAT(stuff_teacher.first_name, ' ', stuff_teacher.last_name) as teacher"),
-        db.raw("CONCAT(stuff_assistent.first_name, ' ', stuff_assistent.last_name) as assistent"),
+        'directions.name as direction',
+        db.raw(`
+          CASE WHEN stuff_teacher.id IS NULL THEN NULL
+          ELSE
+          CONCAT(stuff_teacher.first_name, ' ', stuff_teacher.last_name) END as teacher
+        `),
+        db.raw(`
+          CASE WHEN stuff_assistent.id IS NULL THEN NULL
+          ELSE
+          CONCAT(stuff_assistent.first_name, ' ', stuff_assistent.last_name) END as assistent
+        `),
       )
-      .groupBy('groups.id', 'stuff_teacher.id', 'stuff_assistent.id');
+      .groupBy('groups.id', 'stuff_teacher.id', 'stuff_assistent.id', 'directions.id');
 
     if (name) {
       dbQuery.andWhereILike('name', `%${name}%`);
@@ -113,22 +123,45 @@ const showGroup = async (req, res) => {
     const group = await db('groups')
       .leftJoin('stuff as stuff_teacher', 'stuff_teacher.id', 'groups.teacher_id')
       .leftJoin('stuff as stuff_assistent', 'stuff_assistent.id', 'groups.assistent_teacher_id')
-      .innerJoin('groups_students', 'groups_students.group_id', 'groups.id')
-      .innerJoin('students', 'groups_students.student_id', 'students.id')
+      .leftJoin('groups_students', 'groups_students.group_id', 'groups.id')
+      .leftJoin('directions', 'groups.direction_id', 'directions.id')
+      .leftJoin('students', 'groups_students.student_id', 'students.id')
       .select(
         'groups.id',
         'groups.name',
-        db.raw("CONCAT(stuff_teacher.first_name, ' ', stuff_teacher.last_name) as teacher"),
-        db.raw("CONCAT(stuff_assistent.first_name, ' ', stuff_assistent.last_name) as assistent"),
-        db.raw(`json_agg(json_build_object(
-          'id', students.id,
-          'first_name', students.first_name,
-          'last_name', students.last_name,
-          'joined_at', groups_students.joined_at
-        )) as students`)
+        'directions.name as direction',
+        db.raw(`
+        CASE WHEN stuff_teacher.id IS NULL THEN NULL
+        ELSE
+        json_build_object(
+          'id', stuff_teacher.id,
+          'first_name', stuff_teacher.first_name,
+          'last_name', stuff_teacher.last_name,
+          'username', stuff_teacher.username
+        ) END as teacher
+        `),
+        db.raw(`
+        CASE WHEN stuff_assistent.id IS NULL THEN NULL
+        ELSE
+        json_build_object(
+          'id', stuff_assistent.id,
+          'first_name', stuff_assistent.first_name,
+          'last_name', stuff_assistent.last_name,
+          'username', stuff_assistent.username
+        ) END as assistent
+        `),
+        db.raw(`
+          CASE WHEN students.id IS NULL THEN '[]'
+          ELSE
+          json_agg(json_build_object(
+              'id', students.id,
+              'first_name', students.first_name,
+              'last_name', students.last_name
+            )) END as students
+        `)
       )
       .where({ 'groups.id': id })
-      .groupBy('groups.id', 'stuff_teacher.id', 'stuff_assistent.id')
+      .groupBy('groups.id', 'stuff_teacher.id', 'stuff_assistent.id', 'students.id', 'directions.id')
       .first();
 
     if (!group) {
@@ -140,7 +173,6 @@ const showGroup = async (req, res) => {
     res.status(200).json({
       group
     });
-
   } catch (error) {
     res.status(500).json({
       error: error.message
