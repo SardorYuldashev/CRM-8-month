@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const db = require('../../db');
 const config = require('../../shared/config');
 const { NotFoundError, UnauthorizedError } = require('../../shared/errors');
+const Stuff = require('../../models/Stuff');
 
 /**
  * Post stuff
@@ -15,20 +16,17 @@ const postStuff = async (req, res, next) => {
   try {
     const { first_name, last_name, role, username, password } = req.body;
 
-    const hashPassword = await bcrypt.hash(password, 10);
-
-    const result = await db('stuff')
-      .insert({
-        first_name,
-        last_name,
-        role,
-        username,
-        password: hashPassword,
-      })
-      .returning('*');
+    const result = await Stuff.create({
+      first_name,
+      last_name,
+      role,
+      username,
+      password
+      // password: hashPassword,
+    });
 
     res.status(201).json({
-      user: result[0],
+      user: result,
     });
   } catch (error) {
     next(error);
@@ -45,7 +43,11 @@ const getStuff = async (req, res, next) => {
   try {
     const { role, q, offset = 0, limit = 5, sort_by = 'id', sort_order = 'desc' } = req.query;
 
-    const dbQuery = db('stuff').select('id', 'first_name', 'last_name', 'role', 'username');
+    const dbQuery = Stuff.findAll({
+      attributes: ['id', 'first_name', 'last_name', 'role', 'username']
+    })
+
+    // const dbQuery = db('stuff').select('id', 'first_name', 'last_name', 'role', 'username');
 
     if (role) {
       dbQuery.where({ role });
@@ -112,15 +114,18 @@ const loginStuff = async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
-    const existing = await db('stuff').where({ username }).select('id', 'password', 'role').first();
+    const existing = await Stuff.findOne({
+      where: {username},
+      attributes: ['id', 'password', 'role']
+    });
 
     if (!existing) {
       throw new UnauthorizedError('Username yoki password xato.');
     }
 
-    const passwordCompare = await bcrypt.compare(password, existing.password);
+    // const passwordCompare = await bcrypt.compare(password, existing.password);
 
-    if (!passwordCompare) {
+    if (password !== existing.password) {
       throw new UnauthorizedError('Username yoki password xato.');
     }
 

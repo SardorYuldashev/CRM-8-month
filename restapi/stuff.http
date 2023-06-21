@@ -1,7 +1,7 @@
 ### Add stuff
 POST http://localhost:3000/stuff
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzY5NzE2LCJleHAiOjE2ODc0NTYxMTZ9.GHJTvpfyCuq3GsJkJOnsDmb8jW4E1vJcqG0cA_Ya6CY
 
 {
   "first_name": "Jabbor",
@@ -14,8 +14,8 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVy
 
 
 ### List stuff
-GET http://localhost:3000/stuff?limit=10
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
+GET http://localhost:3000/stuff
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzY5NzE2LCJleHAiOjE2ODc0NTYxMTZ9.GHJTvpfyCuq3GsJkJOnsDmb8jW4E1vJcqG0cA_Ya6CY
 
 
 
@@ -45,3 +45,4 @@ Content-Type: application/json
 ### Delete stuff
 DELETE http://localhost:3000/stuff/8
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
+
