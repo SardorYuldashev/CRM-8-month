@@ -1,30 +1,27 @@
 const express = require('express');
 const db = require('../../db');
+const { BadReqqustError, NotFoundError } = require('../../shared/errors');
 
 /**
  * Guruh yaratish
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const postGroup = async (req, res) => {
+const postGroup = async (req, res, next) => {
   try {
     const { name, teacher_id, assistent_teacher_id, direction_id } = req.body;
 
     const existing = await db('groups').where({ name });
 
     if (existing.length == 1) {
-      return res.status(400).json({
-        error: 'Bunday guruh mavjud'
-      });
+      throw new BadReqqustError('Bunday guruh mavjud');
     };
 
     if (teacher_id) {
       const existing = await db('stuff').where({ id: teacher_id }).first();
 
       if (!existing || existing.role !== 'teacher') {
-        return res.status(400).json({
-          error: 'Teacher mavjud emas'
-        });
+        throw new NotFoundError('Teacher mavjud emas');
       };
     };
 
@@ -32,9 +29,7 @@ const postGroup = async (req, res) => {
       const existing = await db('stuff').where({ id: assistent_teacher_id }).first();
 
       if (!existing || existing.role !== 'assistent_teacher') {
-        return res.status(400).json({
-          error: 'Assistent teacher mavjud emas'
-        });
+        throw new NotFoundError('Assistent teacher mavjud emas');
       };
     };
 
@@ -44,9 +39,7 @@ const postGroup = async (req, res) => {
       group: result[0]
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
+    next(error);
   };
 };
 
@@ -56,7 +49,7 @@ const postGroup = async (req, res) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const getGroups = async (req, res) => {
+const getGroups = async (req, res, next) => {
   try {
     const { name, direction_id, teacher, offset = 0, limit = 5, sort_by = 'id', sort_order = 'desc' } = req.query;
 
@@ -110,9 +103,7 @@ const getGroups = async (req, res) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
+    next(error);
   };
 };
 
@@ -121,7 +112,7 @@ const getGroups = async (req, res) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const showGroup = async (req, res) => {
+const showGroup = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -173,18 +164,14 @@ const showGroup = async (req, res) => {
     .first();
 
     if (!group) {
-      return res.status(404).json({
-        error: 'Guruh topilmadi',
-      });
+      throw new NotFoundError(`${id} IDli guruh topilmadi`);
     };
 
     res.status(200).json({
       group
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message
-    });
+    next(error);
   };
 };
 
@@ -193,7 +180,7 @@ const showGroup = async (req, res) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const patchGroup = async (req, res) => {
+const patchGroup = async (req, res, next) => {
   try {
     const { ...changes } = req.body;
 
@@ -202,18 +189,14 @@ const patchGroup = async (req, res) => {
     const existingGroup = await db('groups').where({ id }).first();
 
     if (!existingGroup) {
-      return res.status(404).json({
-        error: `${id} idli guruh topilmadi.`,
-      });
+      throw new NotFoundError(`${id} idli guruh topilmadi.`);
     };
 
     if (changes.teacher_id) {
       const existing = await db('stuff').where({ id: changes.teacher_id }).first();
 
       if (!existing || existing.role !== 'teacher') {
-        return res.status(400).json({
-          error: 'Teacher mavjud emas'
-        });
+        throw new NotFoundError('Teacher mavjud emas');
       };
     };
 
@@ -221,9 +204,7 @@ const patchGroup = async (req, res) => {
       const existing = await db('stuff').where({ id: changes.assistent_teacher_id }).first();
 
       if (!existing || existing.role !== 'assistent_teacher') {
-        return res.status(400).json({
-          error: 'Assistent teacher mavjud emas'
-        });
+        throw new NotFoundError('Assistent teacher mavjud emas');
       };
     };
 
@@ -236,9 +217,7 @@ const patchGroup = async (req, res) => {
       updated: updated[0],
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
+    next(error);
   };
 };
 
@@ -247,16 +226,14 @@ const patchGroup = async (req, res) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const deleteGroup = async (req, res) => {
+const deleteGroup = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const existing = await db('groups').where({ id }).first();
 
     if (!existing) {
-      return res.status(404).json({
-        error: `${id} idli guruh topilmadi`,
-      });
+      throw new NotFoundError(`${id} idli guruh topilmadi`);
     };
 
     const deleted = await db('groups')
@@ -268,9 +245,7 @@ const deleteGroup = async (req, res) => {
       deleted: deleted[0],
     });
   } catch (error) {
-    res.status(500).json({
-      error
-    });
+    next(error);
   };
 };
 
@@ -279,7 +254,7 @@ const deleteGroup = async (req, res) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const addStudent = async (req, res) => {
+const addStudent = async (req, res, next) => {
   try {
     const { id, student_id } = req.params;
 
@@ -287,13 +262,10 @@ const addStudent = async (req, res) => {
 
     res.status(201).json({
       result
-    })
-
+    });
 
   } catch (error) {
-    res.status(500).json({
-      error
-    });
+    next(error);
   };
 };
 
@@ -302,7 +274,7 @@ const addStudent = async (req, res) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const removeFromGroup = async (req, res) => {
+const removeFromGroup = async (req, res, next) => {
   try {
     const { id, student_id } = req.params;
 
@@ -311,9 +283,7 @@ const removeFromGroup = async (req, res) => {
       .first();
 
     if (!existing) {
-      return res.status(400).json({
-        error: `Xato IDlar kiritilgan`
-      });
+      throw new BadReqqustError(`Xato IDlar kiritilgan`);
     };
 
     const deleted = await db('groups_students')
@@ -325,9 +295,7 @@ const removeFromGroup = async (req, res) => {
       deleted: deleted[0],
     });
   } catch (error) {
-    res.status(500).json({
-      error
-    });
+    next(error);
   };
 };
 
@@ -336,7 +304,7 @@ const removeFromGroup = async (req, res) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const getListStudentsOfGroup = async (req, res) => {
+const getListStudentsOfGroup = async (req, res, next) => {
   try {
     const { offset = 0, limit = 5, sort_order = 'desc' } = req.query;
 
@@ -350,20 +318,16 @@ const getListStudentsOfGroup = async (req, res) => {
       .where({ 'groups_students.group_id': id })
       .groupBy('groups_students.id', 'groups.id', 'students.id');
 
-
     const total = await dbQuery.clone().count().groupBy('groups_students.id', 'groups.id', 'students.id');
 
     dbQuery.orderBy('student', sort_order);
 
     dbQuery.limit(limit).offset(offset);
 
-
     const result = await dbQuery;
 
     if (result.length === 0) {
-      return res.status(400).json({
-        error: `IDsi ${id} ga teng bo'lgan guruh mavjud emas`
-      });
+      throw new NotFoundError(`IDsi ${id} ga teng bo'lgan guruh mavjud emas`);
     };
 
     res.status(200).json({
@@ -373,11 +337,9 @@ const getListStudentsOfGroup = async (req, res) => {
         offset,
         limit,
       }
-    })
-  } catch (error) {
-    res.status(500).json({
-      error
     });
+  } catch (error) {
+    next(error);
   };
 };
 

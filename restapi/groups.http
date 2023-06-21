@@ -4,8 +4,8 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVy
 Content-Type: application/json
 
 {
-  "name": "M102",
-  "teacher_id": 3
+  "name": "G031",
+  "teacher_id": 3,
   "assistent_teacher_id": 4,
   "direction_id": 3
 }
@@ -17,45 +17,46 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVy
 
 
 ### Bitta guruh ma'lumotini olish
-GET http://localhost:3000/groups/1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
+GET http://localhost:3000/groups/8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
 
 
 ### Guruh ma'lumotini tahrirlash
-PATCH http://localhost:3000/groups/
+PATCH http://localhost:3000/groups/11
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
 Content-Type: application/json
 
 {
-  "name": "N111",
+  "name": "N115",
+  "teacher_id": 3,
   "assistent_teacher_id": 4
 }
 
 
 
 ### Guruhni o'chirish
-DELETE http://localhost:3000/groups/13
+DELETE http://localhost:3000/groups/111
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
 
 
 
 ### Guruhga o'quvchi qo'shish
-POST http://localhost:3000/groups/4/students/5
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
+POST http://localhost:3000/groups/8/students/2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
 
 
 
 
 
 
-### Bog'lanish yaratish
-DELETE http://localhost:3000/groups/1/students/1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
+### Guruhdan studentni o'chirish
+DELETE http://localhost:3000/groups/8/students/2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
 
 
 
 
 
 ### Guruhdagi o'quvchilarni ko'rish
-GET http://localhost:3000/groups/1/students
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
+GET http://localhost:3000/groups/2/students
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
