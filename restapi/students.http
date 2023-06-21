@@ -1,9 +1,9 @@
 POST http://localhost:3000/students
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NTkwMDcxLCJleHAiOjE2ODY2NzY0NzF9.-Peg3DszJkXcFOashgeB6sF4lsEwclV25EFT0uGVkf8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
 Content-Type: application/json
 
 {
-  "first_name": "Rashid",
+  "first_name": "X",
   "last_name": "Xoliqov"
 }
 
@@ -13,21 +13,21 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVy
 
 
 ###
-GET http://localhost:3000/students/9
+GET http://localhost:3000/students/10
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
 
 
 ###
-PATCH http://localhost:3000/students/5
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NTkxMTY4LCJleHAiOjE2ODY2Nzc1Njh9.cENGFXWThmlSubUlbiaPKKuMFzPfig7gsY3JwpLmI2o
+PATCH http://localhost:3000/students/9
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
 Content-Type: application/json
 
 {
-  "first_name": "Abdulla",
-  "last_name": "Oripov"
+  "first_name": "O'tkir",
+  "last_name": "Xoshimov"
 }
 
 
 ###
-DELETE http://localhost:3000/students/5
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NTkxMTY4LCJleHAiOjE2ODY2Nzc1Njh9.cENGFXWThmlSubUlbiaPKKuMFzPfig7gsY3JwpLmI2o
+DELETE http://localhost:3000/students/9
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY

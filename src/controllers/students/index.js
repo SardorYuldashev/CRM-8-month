@@ -23,9 +23,6 @@ const postStudent = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-    // res.status(500).json({
-    //   error: error.message,
-    // });
   };
 };
 
@@ -34,7 +31,7 @@ const postStudent = async (req, res, next) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const getStudents = async (req, res) => {
+const getStudents = async (req, res, next) => {
   try {
     const { q, offset = 0, limit = 5, sort_by = 'id', sort_order = 'desc' } = req.query;
 
@@ -61,9 +58,7 @@ const getStudents = async (req, res) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
+    next(error);
   };
 };
 
@@ -100,7 +95,7 @@ const showStudent = async (req, res, next) => {
  * @param {express.Response} res 
  * @returns 
  */
-const patchStudent = async (req, res) => {
+const patchStudent = async (req, res, next) => {
   try {
     const { ...changes } = req.body;
 
@@ -109,9 +104,7 @@ const patchStudent = async (req, res) => {
     const existing = await db('students').where({ id }).first();
 
     if (!existing) {
-      return res.status(404).json({
-        error: `${id} idli o'quvchi topilmadi.`,
-      });
+      throw new NotFoundError(`${id} idli o'quvchi topilmadi.`);
     };
 
     const updated = await db('students')
@@ -124,10 +117,8 @@ const patchStudent = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
-  }
+    next(error);
+  };
 };
 
 /**
@@ -135,16 +126,14 @@ const patchStudent = async (req, res) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const deleteStudent = async (req, res) => {
+const deleteStudent = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const existing = await db('students').where({ id }).first();
 
     if (!existing) {
-      return res.status(404).json({
-        error: `${id} idli o'quvchi topilmadi.`,
-      });
+      throw new NotFoundError(`${id} idli o'quvchi topilmadi.`);
     };
 
     const deleted = await db('students')
@@ -157,9 +146,7 @@ const deleteStudent = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({
-      error
-    });
+    next(error);
   };
 };
 
