@@ -10,7 +10,7 @@ const {
   showDirection,
   patchDirection,
   deleteDirection
-} = require('../controllers/directions')
+} = require('../controllers/directions');
 const schemas = require('../controllers/directions/schemas');
 
 const router = express.Router();

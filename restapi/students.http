@@ -9,8 +9,12 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/students
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MTgyOTU5LCJleHAiOjE2ODcyNjkzNTl9.FaQUbW18zOslQqzzIq7dxpCPnQ7MStsUNcDkR3IFjHM
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
 
+
+###
+GET http://localhost:3000/students/9
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
 
 
 ###

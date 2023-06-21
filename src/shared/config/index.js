@@ -1,5 +1,5 @@
-const dotenv = require('dotenv')
-dotenv.config()
+const dotenv = require('dotenv');
+dotenv.config();
 
 const config = {
   port: process.env.PORT,
@@ -12,6 +12,6 @@ const config = {
   jwt: {
     secret: process.env.JWT_SECRET
   }
-}
+};
 
-module.exports = config
+module.exports = config;

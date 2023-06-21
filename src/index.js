@@ -1,5 +1,6 @@
 const express = require('express');
 const config = require('./shared/config')
+const { errorMiddlewareFunc } = require('./shared/errors');
 const stuffRoutes = require('./routes/stuff');
 const studentsRoutes = require('./routes/student');
 const groupsRoutes = require('./routes/groups');
@@ -15,7 +16,7 @@ app.use(studentsRoutes);
 app.use(groupsRoutes);
 app.use(directionsRoutes);
 
-
+app.use(errorMiddlewareFunc);
 
 
 const PORT = config.port || 3000;

@@ -13,7 +13,7 @@ const {
   addStudent,
   removeFromGroup,
   getListStudentsOfGroup
-} = require('../controllers/groups')
+} = require('../controllers/groups');
 const schemas = require('../controllers/groups/schemas');
 
 const router = express.Router();

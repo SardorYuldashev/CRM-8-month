@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { BadReqqustError } = require('../errors');
 
 /**
  *
@@ -12,10 +13,8 @@ module.exports = function genValidator(schema) {
 
       next();
     } catch (error) {
-      console.log(error);
-      res.status(400).json({
-        error: error.details[0].message,
-      });
-    }
+      err = new BadReqqustError(error.details[0].message);
+      next(err);
+    };
   };
 };

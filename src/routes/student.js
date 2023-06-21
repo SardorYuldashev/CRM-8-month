@@ -10,7 +10,7 @@ const {
   showStudent,
   patchStudent,
   deleteStudent
-} = require('../controllers/students')
+} = require('../controllers/students');
 const schemas = require('../controllers/students/schemas');
 
 const router = express.Router();

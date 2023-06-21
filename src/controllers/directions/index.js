@@ -1,21 +1,20 @@
 const express = require('express');
 const db = require('../../db');
+const { BadReqqustError, NotFoundError } = require('../../shared/errors');
 
 /**
  * Yo'nalish yaratish
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const postDirection = async (req, res) => {
+const postDirection = async (req, res, next) => {
   try {
     const { name } = req.body;
 
     const existing = await db('directions').where({ name });
 
     if (existing.length == 1) {
-      return res.status(400).json({
-        error: 'Bunday yo\'nalish mavjud'
-      });
+      throw new BadReqqustError('Bunday yo\'nalish mavjud');
     };
 
     const result = await db('directions').insert({ name }).returning('*');
@@ -24,9 +23,7 @@ const postDirection = async (req, res) => {
       direction: result[0]
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
+    next(error);
   };
 };
 
@@ -35,7 +32,7 @@ const postDirection = async (req, res) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const getDirections = async (req, res) => {
+const getDirections = async (req, res, next) => {
   try {
     const { q, offset = 0, limit = 5, sort_by = 'id', sort_order = 'desc' } = req.query;
 
@@ -62,9 +59,7 @@ const getDirections = async (req, res) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
+    next(error);
   };
 };
 
@@ -73,25 +68,21 @@ const getDirections = async (req, res) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const showDirection = async (req, res) => {
+const showDirection = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const direction = await db('directions').select().where({ id }).first();
 
     if (!direction) {
-      return res.status(404).json({
-        error: 'Yo\'nalish topilmadi',
-      });
+      throw new NotFoundError('Yo\'nalish topilmadi');
     };
 
     res.status(200).json({
       direction,
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
+    next(error);
   };
 };
 
@@ -100,7 +91,7 @@ const showDirection = async (req, res) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const patchDirection = async (req, res) => {
+const patchDirection = async (req, res, next) => {
   try {
     const { name } = req.body;
 
@@ -109,9 +100,7 @@ const patchDirection = async (req, res) => {
     const existing = await db('directions').where({ id }).first();
 
     if (!existing) {
-      return res.status(404).json({
-        error: `${id} idli yo'nalish topilmadi.`,
-      });
+      throw new NotFoundError(`${id} idli yo'nalish topilmadi.`);
     };
 
     const updated = await db('directions')
@@ -123,9 +112,7 @@ const patchDirection = async (req, res) => {
       updated: updated[0],
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
+    next(error);
   };
 };
 
@@ -134,16 +121,14 @@ const patchDirection = async (req, res) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const deleteDirection = async (req, res) => {
+const deleteDirection = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const existing = await db('directions').where({ id }).first();
 
     if (!existing) {
-      return res.status(404).json({
-        error: `${id} idli yo'nalish topilmadi.`,
-      });
+      throw new NotFoundError(`${id} idli yo'nalish topilmadi.`);
     };
 
     const deleted = await db('directions')
@@ -155,9 +140,7 @@ const deleteDirection = async (req, res) => {
       deleted: deleted[0],
     });
   } catch (error) {
-    res.status(500).json({
-      error
-    });
+    next(error);
   };
 };
 

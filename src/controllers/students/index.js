@@ -1,12 +1,13 @@
 const express = require('express');
 const db = require('../../db');
+const { NotFoundError } = require('../../shared/errors');
 
 /**
  * Post student
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const postStudent = async (req, res) => {
+const postStudent = async (req, res, next) => {
   try {
     const { first_name, last_name } = req.body;
 
@@ -21,9 +22,10 @@ const postStudent = async (req, res) => {
       student: result[0]
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
+    next(error);
+    // res.status(500).json({
+    //   error: error.message,
+    // });
   };
 };
 
@@ -70,7 +72,7 @@ const getStudents = async (req, res) => {
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const showStudent = async (req, res) => {
+const showStudent = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -80,9 +82,7 @@ const showStudent = async (req, res) => {
       .first();
 
     if (!student) {
-      return res.status(404).json({
-        error: `O'quvchi topilmadi.`,
-      });
+      throw new NotFoundError(`O'quvchi topilmadi.`);
     };
 
     res.status(200).json({
@@ -90,9 +90,7 @@ const showStudent = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({
-      error: error.message
-    });
+    next(error);
   };
 };
 

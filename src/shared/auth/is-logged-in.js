@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
+const { UnauthorizedError } = require('../errors');
 
 /**
  * Login qilganligini tekshirish uchun
@@ -13,10 +14,8 @@ const isLoggedIn = (req, res, next) => {
     const { authorization: token } = req.headers;
 
     if (!token) {
-      return res.status(401).json({
-        error: 'Login qilmagansiz.',
-      });
-    }
+      throw new UnauthorizedError('Login qilmagansiz.');
+    };
 
     const decoded = jwt.verify(token, config.jwt.secret);
 
@@ -27,7 +26,7 @@ const isLoggedIn = (req, res, next) => {
     return res.status(401).json({
       error: 'Login qilmagansiz.',
     });
-  }
+  };
 };
 
 module.exports = isLoggedIn;
