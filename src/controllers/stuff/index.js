@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('../../db');
 const config = require('../../shared/config');
+const { NotFoundError, UnauthorizedError } = require('../../shared/errors');
 
 /**
  * Post stuff
@@ -10,7 +11,7 @@ const config = require('../../shared/config');
  * @param {express.Request} req
  * @param {express.Response} res
  */
-const postStuff = async (req, res) => {
+const postStuff = async (req, res, next) => {
   try {
     const { first_name, last_name, role, username, password } = req.body;
 
@@ -30,10 +31,8 @@ const postStuff = async (req, res) => {
       user: result[0],
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
-  }
+    next(error);
+  };
 };
 
 /**
@@ -42,7 +41,7 @@ const postStuff = async (req, res) => {
  * @param {express.Request} req
  * @param {express.Response} res
  */
-const getStuff = async (req, res) => {
+const getStuff = async (req, res, next) => {
   try {
     const { role, q, offset = 0, limit = 5, sort_by = 'id', sort_order = 'desc' } = req.query;
 
@@ -50,10 +49,11 @@ const getStuff = async (req, res) => {
 
     if (role) {
       dbQuery.where({ role });
-    }
+    };
+
     if (q) {
       dbQuery.andWhereILike('first_name', `%${q}%`).orWhereILike('last_name', `%${q}%`);
-    }
+    };
 
     const total = await dbQuery.clone().count().groupBy('id');
 
@@ -72,10 +72,8 @@ const getStuff = async (req, res) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
-  }
+    next(error);
+  };
 };
 
 /**
@@ -84,7 +82,7 @@ const getStuff = async (req, res) => {
  * @param {express.Request} req
  * @param {express.Response} res
  */
-const showStuff = async (req, res) => {
+const showStuff = async (req, res, next) => {
   try {
     const { id } = req.params;
     const stuff = await db('stuff')
@@ -93,19 +91,15 @@ const showStuff = async (req, res) => {
       .first();
 
     if (!stuff) {
-      return res.status(404).json({
-        error: 'Xodim topilmadi.',
-      });
-    }
+      throw new NotFoundError(`${id} IDli xodim topilmadi.`);
+    };
 
     res.status(200).json({
       stuff,
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
-  }
+    next(error);
+  };
 };
 
 /**
@@ -114,24 +108,20 @@ const showStuff = async (req, res) => {
  * @param {express.Request} req
  * @param {express.Response} res
  */
-const loginStuff = async (req, res) => {
+const loginStuff = async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
     const existing = await db('stuff').where({ username }).select('id', 'password', 'role').first();
 
     if (!existing) {
-      return res.status(401).json({
-        error: 'Username yoki password xato.',
-      });
+      throw new UnauthorizedError('Username yoki password xato.');
     }
 
     const passwordCompare = await bcrypt.compare(password, existing.password);
 
     if (!passwordCompare) {
-      return res.status(401).json({
-        error: 'Username yoki password xato.',
-      });
+      throw new UnauthorizedError('Username yoki password xato.');
     }
 
     const token = jwt.sign({ id: existing.id, role: existing.role }, config.jwt.secret, {
@@ -142,10 +132,8 @@ const loginStuff = async (req, res) => {
       token,
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
-  }
+    next(error);
+  };
 };
 
 /**
@@ -154,7 +142,7 @@ const loginStuff = async (req, res) => {
  * @param {express.Request} req
  * @param {express.Response} res
  */
-const patchStuff = async (req, res) => {
+const patchStuff = async (req, res, next) => {
   try {
     const { ...changes } = req.body;
 
@@ -167,10 +155,8 @@ const patchStuff = async (req, res) => {
     const existing = await db('stuff').where({ id }).first();
 
     if (!existing) {
-      return res.status(404).json({
-        error: `${id} idli xodim topilmadi.`,
-      });
-    }
+      throw new NotFoundError(`${id} idli xodim topilmadi.`);
+    };
 
     const updated = await db('stuff')
       .where({ id })
@@ -181,10 +167,8 @@ const patchStuff = async (req, res) => {
       updated: updated[0],
     });
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
-  }
+    next(error);
+  };
 };
 
 /**
@@ -193,17 +177,15 @@ const patchStuff = async (req, res) => {
  * @param {express.Request} req
  * @param {express.Response} res
  */
-const deleteStuff = async (req, res) => {
+const deleteStuff = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const existing = await db('stuff').where({ id }).first();
 
     if (!existing) {
-      return res.status(404).json({
-        error: `${id} idli xodim topilmadi.`,
-      });
-    }
+      throw new NotFoundError(`${id} idli xodim topilmadi.`);
+    };
 
     const deleted = await db('stuff')
       .where({ id })
@@ -214,10 +196,8 @@ const deleteStuff = async (req, res) => {
       deleted: deleted[0],
     });
   } catch (error) {
-    res.status(500).json({
-      error,
-    });
-  }
+    next(error);
+  };
 };
 
 module.exports = {

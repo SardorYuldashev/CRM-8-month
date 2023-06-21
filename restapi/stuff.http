@@ -1,24 +1,27 @@
 ### Add stuff
 POST http://localhost:3000/stuff
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NzM0Njk0LCJleHAiOjE2ODY4MjEwOTR9.wgOMLtafDoggGB-7VYCfHt3d-W7h_pB82ipQhFJ734Q
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
 
 {
-  "first_name": "Alisher",
-  "last_name": "Egamberdiyev",
+  "first_name": "Jabbor",
+  "last_name": "Ikromov",
   "role": "teacher",
-  "username": "alisher",
+  "username": "jabbor",
   "password": "123456"
 }
 
+
+
 ### List stuff
-GET http://localhost:3000/stuff?sort_order=esc&sort_by=first_name&limit=10
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2OTA5NzI5LCJleHAiOjE2ODY5OTYxMjl9.771RLErtMInkCYoMtJHGArai1Ppp6bGEROM85lnl5g4
-# query params: role, q
+GET http://localhost:3000/stuff?limit=10
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
+
+
 
 ### Show single stuff
-GET http://localhost:3000/stuff/1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg2Mzc3NzA1LCJleHAiOjE2ODY0NjQxMDV9.zM2jDB8F7Hvf0XmzJiPgCbP-yyhz-apCF9eGbIf9jps
+GET http://localhost:3000/stuff/8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
 
 ### Login schema
 POST http://localhost:3000/stuff/login
@@ -30,16 +33,15 @@ Content-Type: application/json
 }
 
 ### Update stuff
-PATCH http://localhost:3000/stuff/2
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg2NTg3NzA5LCJleHAiOjE2ODY2NzQxMDl9._lL2ND_iclc2cfdEfnGL0nJIv3x2-AmjExiQ6L2Cvsg
+PATCH http://localhost:3000/stuff/8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
 Content-Type: application/json
 
 {
-  "first_name": "Imron",
-  "last_name": "Abdusalimov",
-  "password": "123456"
+  "first_name": "Jabbor",
+  "last_name": "Ikromov"
 }
 
 ### Delete stuff
-DELETE http://localhost:3001/stuff/1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg2Mzc3NzA1LCJleHAiOjE2ODY0NjQxMDV9.zM2jDB8F7Hvf0XmzJiPgCbP-yyhz-apCF9eGbIf9jps
+DELETE http://localhost:3000/stuff/8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjg3MzMwMTYwLCJleHAiOjE2ODc0MTY1NjB9.7gxCGavEJqJc9pOM0x9spOXTIoxtA3HnYe5efYmIHiY
